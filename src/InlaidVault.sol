@@ -215,6 +215,32 @@ contract InlaidVault is AccessControl, Pausable {
         _unpause();
     }
 
+    /**
+     * @notice Set MUON appId
+     * @param _muonAppId App id
+     */
+    function setMuonAppId(uint256 _muonAppId) external onlyRole(ADMIN_ROLE) {
+        muonAppId = _muonAppId;
+    }
+
+    /**
+     * @notice Set MUON public key
+     * @param _muonPublicKey Public key
+     */
+    function setMuonPublicKey(
+        IMuonClient.PublicKey memory _muonPublicKey
+    ) external onlyRole(ADMIN_ROLE) {
+        muonPublicKey = _muonPublicKey;
+    }
+
+    /**
+     * @notice Set MUON client address
+     * @param _muonClient Address of MUON client
+     */
+    function setMuonClient(address _muonClient) external onlyRole(ADMIN_ROLE) {
+        muon = IMuonClient(_muonClient);
+    }
+
     /// @notice To receive ETH for staking
     receive() external payable {
         require(underlyingToken == address(0), "ETH not accepted");
